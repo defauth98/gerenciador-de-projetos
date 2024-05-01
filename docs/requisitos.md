@@ -1,0 +1,7 @@
+- O usuário poderá se cadastrar na aplicaçao passando nome, email e senha
+- O usuário poderá logar na aplicaçao usando email e senha
+- O usuário poderá listar o status do projeto junto com o orientador e coorientador
+- O usuário poderá listar os membros do projetos
+- O usuário poderá cadastrar um novo membro no projeto
+- O usuário poderá listar os documentos do projeto
+- O usuário poderá fazer upload de um novo documento
