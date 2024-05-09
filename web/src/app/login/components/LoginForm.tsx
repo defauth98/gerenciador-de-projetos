@@ -17,7 +17,7 @@ export default function LoginForm() {
       </div>
       <div className="pt-4">
         <p className="text-sm">
-          Ainda não possui uma conta?
+          Ainda não possui uma conta?{" "}
           <span className="underline">Cadastre-se</span>
         </p>
       </div>
