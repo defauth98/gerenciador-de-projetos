@@ -43,20 +43,20 @@ export default function FilesPage() {
             </Select>
 
             <Link
-              href="#"
-              className="text-foreground transition-colors hover:text-foreground"
+              href="/project-dashboard"
+              className="text-muted-foreground transition-colors hover:text-foreground"
             >
-              Dashboard
+              Visão geral
             </Link>
             <Link
-              href="#"
+              href="/tasks"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
               Tarefas
             </Link>
             <Link
-              href="#"
-              className="text-muted-foreground transition-colors hover:text-foreground"
+              href="/files"
+              className="text-foreground transition-colors hover:text-foreground"
             >
               Arquivos
             </Link>

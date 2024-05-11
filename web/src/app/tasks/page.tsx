@@ -43,19 +43,19 @@ export default function TasksPage() {
             </Select>
 
             <Link
-              href="#"
-              className="text-foreground transition-colors hover:text-foreground"
+              href="/project-dashboard"
+              className="text-muted-foreground transition-colors hover:text-foreground"
             >
-              Dashboard
+              Visão geral
             </Link>
             <Link
-              href="#"
-              className="text-muted-foreground transition-colors hover:text-foreground"
+              href="/tasks"
+              className="text-foreground transition-colors hover:text-foreground"
             >
               Tarefas
             </Link>
             <Link
-              href="#"
+              href="/files"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
               Arquivos
