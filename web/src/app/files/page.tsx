@@ -25,7 +25,7 @@ import {
 
 import { Download, Delete } from "lucide-react";
 
-export default function TasksPage() {
+export default function FilesPage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -75,38 +75,37 @@ export default function TasksPage() {
         <Table className="border">
           <TableHeader>
             <TableRow>
-              <TableHead>Task</TableHead>
-              <TableHead>Title</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Prioridade</TableHead>
-              <TableHead>Data</TableHead>
+              <TableHead>Nome</TableHead>
+              <TableHead>Tipo</TableHead>
+              <TableHead>Data do upload</TableHead>
+              <TableHead>Usuário</TableHead>
+              <TableHead>Açoes</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {[
               {
-                name: "TASK-1",
-                title: "ESCREVER ARTIGO",
-                status: "Done",
-                priority: "medium",
-                data: new Date().toISOString(),
-                done: false,
+                name: "Relatório final versão 1",
+                type: "docx",
+                uploadedAt: new Date(),
+                uploadedBy: "Daniel Ribeiro",
               },
               {
-                name: "TASK-1",
-                title: "ESCREVER ARTIGO",
-                status: "Done",
-                priority: "medium",
-                data: new Date().toISOString(),
-                done: false,
+                name: "Relatório final versão 2",
+                type: "docx",
+                uploadedAt: new Date(),
+                uploadedBy: "Daniel Ribeiro",
               },
-            ].map((task) => (
-              <TableRow key={task.name}>
-                <TableCell>{task.name}</TableCell>
-                <TableCell>{task.title}</TableCell>
-                <TableCell>{task.status}</TableCell>
-                <TableCell>{task.priority}</TableCell>
-                <TableCell>{task.data}</TableCell>
+            ].map((file) => (
+              <TableRow key={file.name}>
+                <TableCell>{file.name}</TableCell>
+                <TableCell>{file.type}</TableCell>
+                <TableCell>{file.uploadedAt.toISOString()}</TableCell>
+                <TableCell>{file.uploadedBy}</TableCell>
+                <TableCell className="flex gap-1">
+                  <Download />
+                  <Delete />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
