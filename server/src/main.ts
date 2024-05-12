@@ -8,6 +8,8 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('/api');
+
   const config = new DocumentBuilder()
     .setTitle('Project Manager API')
     .setVersion('1.0')
@@ -16,6 +18,8 @@ async function bootstrap() {
   SwaggerModule.setup('/api/swagger', app, document);
 
   Logger.log(`App running in http://localhost:${port}`);
+
+  app.enableCors();
 
   await app.listen(port);
 }
