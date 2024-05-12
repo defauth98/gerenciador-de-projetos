@@ -1,3 +1,5 @@
+"use client";
+
 import LogoScreen from "@/components/LogoScreen";
 import SignInForm from "./components/SignInForm";
 

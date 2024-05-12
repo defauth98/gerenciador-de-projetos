@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { postLogin } from "@/services/auth/login";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
@@ -58,8 +59,7 @@ export default function LoginForm() {
       </form>
       <div className="pt-4">
         <p className="text-sm">
-          Ainda não possui uma conta?{" "}
-          <span className="underline">Cadastre-se</span>
+          Ainda não possui uma conta? <Link href="/sign-in">Cadastrar</Link>
         </p>
       </div>
     </div>

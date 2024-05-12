@@ -46,7 +46,11 @@ export class UsersService {
 
     Logger.log(`User created`, payload);
 
-    await this.userRepository.insert(payload);
+    const user = await this.userRepository.save(payload);
+
+    return {
+      token: jwt.sign({ userId: user.id }, 'secret'),
+    };
   }
 
   async login(loginDto: LoginDto) {
