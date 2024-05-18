@@ -10,13 +10,14 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { hashSync, compareSync } from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
-import * as jwt from 'jsonwebtoken';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
     @Inject('USER_REPOSITORY')
     private userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -49,7 +50,8 @@ export class UsersService {
     const user = await this.userRepository.save(payload);
 
     return {
-      token: jwt.sign({ userId: user.id }, 'secret'),
+      token: await this.jwtService.signAsync({ userId: user.id }),
+      user,
     };
   }
 
@@ -68,7 +70,8 @@ export class UsersService {
 
     if (isValid) {
       return {
-        token: jwt.sign({ userId: user.id }, 'secret'),
+        token: await this.jwtService.signAsync({ userId: user.id }),
+        user,
       };
     }
 

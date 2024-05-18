@@ -24,8 +24,12 @@ export type GetOneProjectResponseType = {
 
 export async function getProjectById(
   id: number
-): Promise<GetOneProjectResponseType> {
-  const response = await api.get(`/projects/${id}`);
+): Promise<GetOneProjectResponseType | null> {
+  try {
+    const response = await api.get(`/projects/${id}`);
 
-  return response.data as GetOneProjectResponseType;
+    return response.data as GetOneProjectResponseType;
+  } catch (error) {
+    return null;
+  }
 }

@@ -12,22 +12,33 @@ import {
 } from "@/components/ui/select";
 import AvatarName from "@/components/AvatarName";
 import { Separator } from "@/components/ui/separator";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   GetOneProjectResponseType,
   getProjectById,
 } from "@/services/project/project";
+import { useRouter } from "next/navigation";
 
 export default function ProjectDashboardPage() {
-  const [project, setProject] = useState<GetOneProjectResponseType>();
+  const router = useRouter();
 
-  async function getProject() {
+  const [project, setProject] = useState<GetOneProjectResponseType | null>();
+
+  const getProject = useCallback(async () => {
+    const project = await getProjectById(1);
+
+    console.log(project);
+
+    if (!project) {
+      router.push("/login");
+    }
+
     setProject(await getProjectById(1));
-  }
+  }, [router]);
 
   useEffect(() => {
     getProject();
-  }, []);
+  }, [getProject]);
 
   if (!project) {
     return <div>loading...</div>;
