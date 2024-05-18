@@ -2,6 +2,11 @@ import api from "../api";
 
 export type PostLoginResponseType = {
   token: string;
+  user: {
+    email: string;
+    name: string;
+    id: number;
+  };
 };
 
 export async function postLogin(

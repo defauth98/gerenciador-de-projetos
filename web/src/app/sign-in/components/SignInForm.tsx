@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { postLogin } from "@/services/auth/login";
+import api from "@/services/api";
 import { postSignIn } from "@/services/auth/signin";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
@@ -25,7 +24,7 @@ export default function SignInForm() {
   async function handleSignInSubmit(data: Inputs) {
     const { name, email, password, passwordConfirmation } = data;
 
-    const { token } = await postSignIn({
+    const { token, user } = await postSignIn({
       name,
       email,
       password,
@@ -33,6 +32,9 @@ export default function SignInForm() {
     });
 
     if (token) {
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      localStorage.setItem("@RNauth:token", JSON.stringify(token));
+      localStorage.setItem("@RNauth:user", JSON.stringify(user));
       router.push("/project-dashboard");
     }
   }

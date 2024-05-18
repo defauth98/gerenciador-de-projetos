@@ -39,11 +39,12 @@ export default function LoginForm() {
   async function handleLoginSubmit(data: Inputs) {
     const { email, password } = data;
 
-    const { token } = await postLogin(email, password);
+    const { token, user } = await postLogin(email, password);
 
     if (token) {
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
       localStorage.setItem("@RNauth:token", JSON.stringify(token));
+      localStorage.setItem("@RNauth:user", JSON.stringify(user));
       router.push("/project-dashboard");
     }
   }
