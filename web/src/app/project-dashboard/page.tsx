@@ -22,18 +22,28 @@ import {
   GetUserProjectsResponseType,
   getProjectsByUser,
 } from "@/services/project/get-user-projects";
+import api from "@/services/api";
+
+type User = {
+  id: number;
+  name: string;
+  email: string;
+};
 
 export default function ProjectDashboardPage() {
-  const router = useRouter();
-
+  const [user, setUser] = useState<User | null>();
   const [selectProject, setSelectProject] =
     useState<GetOneProjectResponseType | null>();
   const [projects, setProject] = useState<
     GetUserProjectsResponseType["values"] | null
   >();
 
+  const router = useRouter();
+
   const getProject = useCallback(async () => {
-    const userProjects = await getProjectsByUser(1);
+    if (!user) return;
+
+    const userProjects = await getProjectsByUser(user.id);
 
     if (!userProjects) {
       router.push("/login");
@@ -50,7 +60,32 @@ export default function ProjectDashboardPage() {
     }
 
     setSelectProject(project);
-  }, [router]);
+  }, [router, user]);
+
+  const loadStoragedData = useCallback(async () => {
+    const storagedToken = localStorage.getItem("@RNauth:token");
+    const storagedUser = localStorage.getItem("@RNauth:user");
+
+    if (!storagedUser || !storagedToken) {
+      return;
+    }
+
+    const parsedUser = JSON.parse(storagedUser);
+    const parsedToken = JSON.parse(storagedToken);
+
+    if (parsedToken && parsedUser) {
+      api.defaults.headers.common.Authorization = `Bearer ${parsedToken}`;
+      setUser(JSON.parse(storagedUser));
+    }
+  }, []);
+
+  useEffect(() => {
+    loadStoragedData();
+  }, [loadStoragedData]);
+
+  useEffect(() => {
+    if (user) getProject();
+  }, [getProject, user]);
 
   const handleSelectProject = async (value: string) => {
     const project = await getProjectById(Number(value));
@@ -63,11 +98,7 @@ export default function ProjectDashboardPage() {
     setSelectProject(project);
   };
 
-  useEffect(() => {
-    getProject();
-  }, [getProject]);
-
-  if (!selectProject || !projects) {
+  if (!selectProject || !projects || !user) {
     return <div>loading...</div>;
   }
 
@@ -114,9 +145,9 @@ export default function ProjectDashboardPage() {
           <div className="flex items-center gap-1">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarName name={user?.name} />
             </Avatar>
-            <span className="font-sm">Daniel Ribeiro</span>
+            <span className="font-sm">{user?.name}</span>
           </div>
         </nav>
       </header>
