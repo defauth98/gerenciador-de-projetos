@@ -13,34 +13,61 @@ import {
 import AvatarName from "@/components/AvatarName";
 import { Separator } from "@/components/ui/separator";
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   GetOneProjectResponseType,
   getProjectById,
-} from "@/services/project/project";
-import { useRouter } from "next/navigation";
+} from "@/services/project/get-project-by-id";
+import {
+  GetUserProjectsResponseType,
+  getProjectsByUser,
+} from "@/services/project/get-user-projects";
 
 export default function ProjectDashboardPage() {
   const router = useRouter();
 
-  const [project, setProject] = useState<GetOneProjectResponseType | null>();
+  const [selectProject, setSelectProject] =
+    useState<GetOneProjectResponseType | null>();
+  const [projects, setProject] = useState<
+    GetUserProjectsResponseType["values"] | null
+  >();
 
   const getProject = useCallback(async () => {
-    const project = await getProjectById(1);
+    const userProjects = await getProjectsByUser(1);
 
-    console.log(project);
+    if (!userProjects) {
+      router.push("/login");
+      return;
+    }
+
+    setProject(userProjects?.values);
+
+    const project = await getProjectById(userProjects.values[0].id);
 
     if (!project) {
       router.push("/login");
+      return;
     }
 
-    setProject(await getProjectById(1));
+    setSelectProject(project);
   }, [router]);
+
+  const handleSelectProject = async (value: string) => {
+    const project = await getProjectById(Number(value));
+
+    if (!project) {
+      router.push("/login");
+      return;
+    }
+
+    setSelectProject(project);
+  };
 
   useEffect(() => {
     getProject();
   }, [getProject]);
 
-  if (!project) {
+  if (!selectProject || !projects) {
     return <div>loading...</div>;
   }
 
@@ -49,14 +76,18 @@ export default function ProjectDashboardPage() {
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
         <nav className="flex justify-between w-full">
           <div className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-            <Select>
+            <Select onValueChange={handleSelectProject}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Projeto" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="projeto-1">Projeto 1</SelectItem>
-                <SelectItem value="projeto-2">Projeto 2</SelectItem>
-                <SelectItem value="projeto-3">Projeto 3</SelectItem>
+                {projects.map((project) => {
+                  return (
+                    <SelectItem key={project.id} value={String(project.id)}>
+                      {project.title}
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
 
@@ -96,20 +127,20 @@ export default function ProjectDashboardPage() {
           </h1>
           <Separator className="mb-2" />
           <span className="text-sm">
-            <strong>Nome:</strong> {project.title}
+            <strong>Nome:</strong> {selectProject.title}
           </span>
           <span className="text-sm">
-            <strong>Tema: </strong> {project.theme}
+            <strong>Tema: </strong> {selectProject.theme}
           </span>
           <span className="text-sm">
-            <strong>Descrição:</strong> {project.description}
+            <strong>Descrição:</strong> {selectProject.description}
           </span>
         </div>
         <div className="m-4 p-4 border rounded text-sm">
           <h3 className="mb-1 font-bold text-base">Orientadores</h3>
           <div className="gap-4">
-            <AvatarName name={project.advisor.name} isAdvisor />
-            <AvatarName name={project.coAdvisivor.name} isCoAdvisor />
+            <AvatarName name={selectProject.advisor.name} isAdvisor />
+            <AvatarName name={selectProject.coAdvisivor.name} isCoAdvisor />
           </div>
         </div>
         <div className="m-4 p-4 border rounded text-sm">
@@ -117,24 +148,24 @@ export default function ProjectDashboardPage() {
           <Separator className="mb-2" />
           <div>
             <strong className="font-bold">Data de criação: </strong>
-            <span>{String(project.createdAt)}</span>
+            <span>{String(selectProject.createdAt)}</span>
           </div>
           <div>
             <strong className="font-bold">Data de inicio: </strong>
-            <span>{String(project.updatedAt)}</span>
+            <span>{String(selectProject.updatedAt)}</span>
           </div>
           <div>
             <strong className="font-bold">Data final: </strong>
-            <span>{String(project.dueDate)}</span>
+            <span>{String(selectProject.dueDate)}</span>
           </div>
           <div className="flex items-center">
             <strong className="font-bold pr-2">Status: </strong>
-            <span>{project.status}</span>
+            <span>{selectProject.status}</span>
           </div>
         </div>
         <div className="m-4 p-4 border rounded">
           <h3 className="mb-1 font-semibold text-base">Membros do projeto</h3>
-          {project.members.map(({ name }) => (
+          {selectProject.members.map(({ name }) => (
             <AvatarName key={name} name={name} />
           ))}
         </div>
