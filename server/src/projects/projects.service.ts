@@ -58,6 +58,25 @@ export class ProjectsService {
     };
   }
 
+  async findProjectsByUserId(userId: number) {
+    const projects = await this.projectRepository.find({
+      where: {
+        members: {
+          id: userId,
+        },
+      },
+    });
+
+    return (
+      {
+        values: projects.map((project) => ({
+          id: project.id,
+          title: project.title,
+        })),
+      } ?? null
+    );
+  }
+
   update(id: number, updateProjectDto: UpdateProjectDto) {
     return this.projectRepository.update({ id }, updateProjectDto);
   }
