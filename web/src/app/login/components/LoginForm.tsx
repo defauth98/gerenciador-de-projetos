@@ -2,9 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import api from "@/services/api";
 import { postLogin } from "@/services/auth/login";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -21,12 +23,27 @@ export default function LoginForm() {
   } = useForm<Inputs>();
   const router = useRouter();
 
+  useEffect(() => {
+    async function loadSoragedData() {
+      const storagedToken = localStorage.getItem("@RNauth:token");
+
+      if (storagedToken) {
+        api.defaults.headers.common.Authorization = `Bearer ${storagedToken}`;
+        router.push("/project-dashboard");
+      }
+    }
+
+    loadSoragedData();
+  }, [router]);
+
   async function handleLoginSubmit(data: Inputs) {
     const { email, password } = data;
 
     const { token } = await postLogin(email, password);
 
     if (token) {
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      localStorage.setItem("@RNauth:token", JSON.stringify(token));
       router.push("/project-dashboard");
     }
   }
