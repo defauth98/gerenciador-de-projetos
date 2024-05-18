@@ -51,7 +51,10 @@ export class UsersService {
 
     return {
       token: await this.jwtService.signAsync({ userId: user.id }),
-      user,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
     };
   }
 
@@ -71,7 +74,10 @@ export class UsersService {
     if (isValid) {
       return {
         token: await this.jwtService.signAsync({ userId: user.id }),
-        user,
+        user: {
+          name: user.name,
+          email: user.email,
+        },
       };
     }
 
