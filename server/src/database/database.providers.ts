@@ -8,7 +8,7 @@ export const databaseProviders = [
         type: 'mysql',
         host: 'localhost',
         port: 3306,
-        username: 'docker',
+        username: 'root',
         password: 'docker',
         database: 'project-manager',
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
