@@ -5,8 +5,8 @@ export type GetOneProjectResponseType = {
   title: string;
   theme: string;
   description: string;
-  advisivorId: number;
-  coAdvisivorId: number;
+  advisorId: number;
+  coAdvisorId: number;
   dueDate: Date;
   status: string;
   createdAt: Date;
@@ -16,7 +16,7 @@ export type GetOneProjectResponseType = {
     name: string;
     email: string;
   };
-  coAdvisivor: {
+  coAdvisor: {
     name: string;
     email: string;
   };

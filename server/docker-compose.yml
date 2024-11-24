@@ -3,7 +3,7 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: "basic-auth-api"
+      MYSQL_DATABASE: "project-manager"
       MYSQL_USER: "mysql"
       MYSQL_PASSWORD: "docker"
       MYSQL_ROOT_PASSWORD: "docker"

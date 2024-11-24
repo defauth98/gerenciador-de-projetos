@@ -20,7 +20,7 @@ export async function postSignIn({
   password: string;
   passwordConfirmation: string;
 }): Promise<PostSignInType> {
-  const response = await api.post("/users", {
+  const response = await api.post("/user", {
     name,
     email,
     password,

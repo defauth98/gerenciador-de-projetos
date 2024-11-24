@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './app/app.module';
 import { Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { LoggingInterceptor } from './request-log.interceptor';
 
 async function bootstrap() {
   const port = process.env.PORT || 3333;
@@ -21,6 +22,7 @@ async function bootstrap() {
   Logger.log(`App running in http://localhost:${port}`);
 
   app.enableCors();
+  app.useGlobalInterceptors(new LoggingInterceptor());
 
   await app.listen(port);
 }

@@ -1,3 +1,4 @@
+import { removeAuthInLocalStorage } from "@/utils/removeAuthInLocalStorage";
 import api from "../api";
 
 export type GetUserProjectsResponseType = {
@@ -9,6 +10,10 @@ export async function getProjectsByUser(
 ): Promise<GetUserProjectsResponseType | null> {
   try {
     const response = await api.get(`/projects/byUser/${userId}`);
+
+    if (response.status === 401) {
+      removeAuthInLocalStorage();
+    }
 
     return response.data as GetUserProjectsResponseType;
   } catch (error) {

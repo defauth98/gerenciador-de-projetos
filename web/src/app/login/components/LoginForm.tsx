@@ -34,7 +34,7 @@ export default function LoginForm() {
     }
 
     loadSoragedData();
-  }, [router]);
+  }, []);
 
   async function handleLoginSubmit(data: Inputs) {
     const { email, password } = data;
