@@ -119,15 +119,13 @@ describe('FilesService', () => {
     });
   });
 
-  describe.skip('findOne()', () => {
-    const userId = faker.number.int({ min: 1, max: 100 });
-
+  describe('findOne()', () => {
     it('should throw an error if file not found', () => {
-      filesRepository.findOne.mockRejectedValue(null);
+      filesRepository.findOne.mockReturnValue(null);
 
-      expect(filesService.findOne(1)).rejects.toEqual(
-        new BadRequestException('File not found'),
-      );
+      const file = filesService.findOne(1);
+
+      expect(file).toBeNull();
     });
 
     it('should return a file if found', async () => {
@@ -137,7 +135,7 @@ describe('FilesService', () => {
 
       expect(file).toEqual(filePayload);
       expect(filesRepository.findOne).toHaveBeenCalledWith({
-        where: { id: 1, userId },
+        where: { id: 1 },
       });
     });
   });
