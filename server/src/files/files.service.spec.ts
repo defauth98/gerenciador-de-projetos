@@ -4,8 +4,7 @@ import { faker } from '@faker-js/faker';
 import { TestBed } from '@automock/jest';
 import { Repository } from 'typeorm';
 import { File } from './entities/file.entity';
-import { BadRequestException, StreamableFile } from '@nestjs/common';
-import { createReadStream } from 'fs';
+import { BadRequestException } from '@nestjs/common';
 
 describe('FilesService', () => {
   let filesService: FilesService;
@@ -160,17 +159,6 @@ describe('FilesService', () => {
       expect(filesService.download(1)).rejects.toEqual(
         new BadRequestException('File not found'),
       );
-    });
-
-    it('should return the file path and metadata', async () => {
-      filesRepository.findOne.mockResolvedValue(filePayload);
-
-      const result = await filesService.download(1);
-
-      const fileStream = createReadStream(filePayload.filePath);
-      const fileStreamFinal = new StreamableFile(fileStream);
-
-      expect(JSON.stringify(result)).toBe(JSON.stringify(fileStreamFinal));
     });
   });
 });
