@@ -90,19 +90,23 @@ describe('FilesService', () => {
     });
   });
 
-  describe.skip('findAll()', () => {
-    const userId = faker.number.int({ min: 1, max: 100 });
-
+  describe('findAll()', () => {
     it('should return all files for a user', async () => {
       const filesArray = [filePayload, { ...filePayload, id: 2 }];
       filesRepository.find.mockResolvedValue(filesArray);
 
       const files = await filesService.findAll();
 
-      expect(files).toEqual(filesArray);
+      expect(files).toEqual(
+        filesArray.map((file) => ({
+          ...file,
+          filePath: `http://localhost:3333/api/files/download/${file.filePath.split('/').pop()}`,
+        })),
+      );
       expect(filesRepository.find).toHaveBeenCalledWith({
-        where: { userId },
-        order: { createdAt: 'DESC' },
+        relations: {
+          owner: true,
+        },
       });
     });
 
