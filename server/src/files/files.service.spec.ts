@@ -149,16 +149,4 @@ describe('FilesService', () => {
       expect(result).toEqual(null);
     });
   });
-
-  describe('download()', () => {
-    it('should throw an error if file not found', () => {
-      filesRepository.findOne.mockImplementation(() => {
-        throw new BadRequestException('File not found');
-      });
-
-      expect(filesService.download(1)).rejects.toEqual(
-        new BadRequestException('File not found'),
-      );
-    });
-  });
 });

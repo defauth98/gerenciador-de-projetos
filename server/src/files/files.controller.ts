@@ -1,4 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, ParseFilePipe, MaxFileSizeValidator, FileTypeValidator, Request, Response } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseInterceptors,
+  UploadedFile,
+  ParseFilePipe,
+  MaxFileSizeValidator,
+  FileTypeValidator,
+  Request,
+  Response,
+} from '@nestjs/common';
 import { FilesService } from './files.service';
 import { UpdateFileDto } from './dto/update-file.dto';
 import { diskStorage } from 'multer';
@@ -19,7 +35,8 @@ export class FilesController {
       storage: diskStorage({
         destination: './uploads',
         filename: (req, file, callback) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
           callback(null, `${uniqueSuffix}${extname(file.originalname)}`);
         },
       }),
@@ -35,7 +52,7 @@ export class FilesController {
       }),
     )
     file: Express.Multer.File,
-    @Body() uploadFileDto: UploadFileDto,
+    @Body() _uploadFileDto: UploadFileDto,
   ) {
     return this.filesService.upload(file);
   }
@@ -58,10 +75,5 @@ export class FilesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.filesService.remove(+id);
-  }
-
-  @Get('download/:filename')
-  downloadFile(@Param('filename') filename: string, @Response() res) {
-    return res.sendFile(filename, { root: './uploads' });
   }
 }

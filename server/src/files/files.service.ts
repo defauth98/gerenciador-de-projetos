@@ -1,15 +1,8 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-  NotFoundException,
-  StreamableFile,
-} from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
 import { Repository } from 'typeorm';
 import { File } from './entities/file.entity';
-import { createReadStream } from 'fs';
 
 @Injectable()
 export class FilesService {
@@ -38,17 +31,6 @@ export class FilesService {
     });
 
     return this.filesRepository.save(fileEntity);
-  }
-
-  async download(id: number): Promise<StreamableFile> {
-    const file = await this.filesRepository.findOne({ where: { id } });
-
-    if (!file) {
-      throw new NotFoundException('File not found');
-    }
-
-    const fileStream = createReadStream(file.filePath);
-    return new StreamableFile(fileStream);
   }
 
   create(createFileDto: CreateFileDto) {
