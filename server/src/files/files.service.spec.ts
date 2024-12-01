@@ -140,37 +140,13 @@ describe('FilesService', () => {
     });
   });
 
-  describe.skip('remove()', () => {
-    it('should throw an error if file not found', () => {
-      filesRepository.findOne.mockResolvedValue(null);
-
-      expect(filesService.remove(1)).rejects.toEqual(
-        new BadRequestException('File not found'),
-      );
-    });
-
-    it('should delete the file and metadata', async () => {
-      filesRepository.findOne.mockResolvedValue(filePayload);
-      filesRepository.remove.mockResolvedValue(filePayload);
-
-      jest.spyOn(require('fs'), 'unlinkSync').mockImplementation(() => {});
+  describe('remove()', () => {
+    it('should return the same result of delete typeorm method', async () => {
+      filesRepository.delete.mockResolvedValue(null);
 
       const result = await filesService.remove(1);
 
-      expect(result).toEqual(filePayload);
-      expect(filesRepository.remove).toHaveBeenCalledWith(filePayload);
-      expect(require('fs').unlinkSync).toHaveBeenCalledWith(
-        filePayload.filePath,
-      );
-    });
-
-    it('should handle file system errors gracefully', async () => {
-      filesRepository.findOne.mockResolvedValue(filePayload);
-      jest.spyOn(require('fs'), 'unlinkSync').mockImplementation(() => {
-        throw new Error('File system error');
-      });
-
-      await expect(filesService.remove(1)).rejects.toThrow('File system error');
+      expect(result).toEqual(null);
     });
   });
 
