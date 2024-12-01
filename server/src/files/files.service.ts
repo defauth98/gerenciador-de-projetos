@@ -1,9 +1,14 @@
-import { BadRequestException, Inject, Injectable, NotFoundException, StreamableFile } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+  StreamableFile,
+} from '@nestjs/common';
 import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
 import { Repository } from 'typeorm';
 import { File } from './entities/file.entity';
-import { InjectRepository } from '@nestjs/typeorm';
 import { createReadStream } from 'fs';
 
 @Injectable()
@@ -30,7 +35,6 @@ export class FilesService {
       fileType: file.mimetype,
       name: file.originalname,
       ownerUserId: 1,
-      uploadedAt: new Date(),
     });
 
     return this.filesRepository.save(fileEntity);
@@ -38,7 +42,7 @@ export class FilesService {
 
   async download(id: number): Promise<StreamableFile> {
     const file = await this.filesRepository.findOne({ where: { id } });
-    
+
     if (!file) {
       throw new NotFoundException('File not found');
     }
@@ -52,9 +56,11 @@ export class FilesService {
   }
 
   async findAll() {
-    const files = await this.filesRepository.find({relations: {
-      owner: true,
-    }});
+    const files = await this.filesRepository.find({
+      relations: {
+        owner: true,
+      },
+    });
 
     return files.map((file) => ({
       ...file,
