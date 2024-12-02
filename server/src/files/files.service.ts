@@ -1,5 +1,4 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
 import { Repository } from 'typeorm';
 import { File } from './entities/file.entity';
@@ -17,13 +16,11 @@ export class FilesService {
       throw new BadRequestException('File is required');
     }
 
-    // Check file size (10MB limit)
     const maxSize = 10 * 1024 * 1024; // 10MB in bytes
     if (file.size > maxSize) {
       throw new BadRequestException('File size exceeds 10MB limit');
     }
 
-    // Create file metadata
     const fileEntity = this.filesRepository.create({
       filePath: file.path,
       fileType: file.mimetype,
@@ -32,10 +29,6 @@ export class FilesService {
     });
 
     return this.filesRepository.save({ ...fileEntity, uploadedAt: new Date() });
-  }
-
-  create(createFileDto: CreateFileDto) {
-    return this.filesRepository.save(createFileDto);
   }
 
   async findAll() {
