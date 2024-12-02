@@ -5,6 +5,11 @@ import { TestBed } from '@automock/jest';
 import { Repository } from 'typeorm';
 import { File } from './entities/file.entity';
 import { BadRequestException } from '@nestjs/common';
+import { rm } from 'node:fs/promises';
+
+jest.mock('node:fs/promises');
+
+const rmMockedFn = jest.mocked(rm);
 
 describe('FilesService', () => {
   let filesService: FilesService;
@@ -47,7 +52,7 @@ describe('FilesService', () => {
     filesRepository = unitRef.get('FILE_REPOSITORY');
   });
 
-  beforeAll(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
   });
 
@@ -141,12 +146,34 @@ describe('FilesService', () => {
   });
 
   describe('remove()', () => {
-    it('should return the same result of delete typeorm method', async () => {
-      filesRepository.delete.mockResolvedValue(null);
+    it('should call findOne method with correct params', async () => {
+      filesRepository.findOne.mockResolvedValue(filePayload);
 
-      const result = await filesService.remove(1);
+      await filesService.remove(1);
 
-      expect(result).toEqual(null);
+      expect(filesRepository.findOne).toHaveBeenCalled();
+      expect(filesRepository.findOne).toHaveBeenCalledTimes(1);
+      expect(filesRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 1 },
+      });
+    });
+
+    it('should throw an error if file not exists', () => {
+      filesRepository.findOne.mockResolvedValue(null);
+
+      expect(filesService.remove(1)).rejects.toEqual(
+        new BadRequestException('File not found'),
+      );
+    });
+
+    it('should call delete file with correct params', async () => {
+      filesRepository.findOne.mockResolvedValue(filePayload);
+
+      await filesService.remove(1);
+
+      expect(rmMockedFn).toHaveBeenCalled();
+      expect(rmMockedFn).toHaveBeenCalledTimes(1);
+      expect(rmMockedFn).toHaveBeenCalledWith(`./${filePayload.filePath}`);
     });
   });
 });

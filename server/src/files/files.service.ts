@@ -3,6 +3,7 @@ import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
 import { Repository } from 'typeorm';
 import { File } from './entities/file.entity';
+import { rm } from 'node:fs/promises';
 
 @Injectable()
 export class FilesService {
@@ -30,7 +31,7 @@ export class FilesService {
       ownerUserId: 1,
     });
 
-    return this.filesRepository.save(fileEntity);
+    return this.filesRepository.save({ ...fileEntity, uploadedAt: new Date() });
   }
 
   create(createFileDto: CreateFileDto) {
@@ -58,7 +59,15 @@ export class FilesService {
     return this.filesRepository.update({ id }, updateFileDto);
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    const file = await this.filesRepository.findOne({ where: { id } });
+
+    if (!file) {
+      throw new BadRequestException('File not found');
+    }
+
+    rm(`./${file.filePath}`);
+
     return this.filesRepository.delete({ id });
   }
 }
