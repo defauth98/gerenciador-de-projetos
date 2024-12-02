@@ -8,7 +8,6 @@ import { FilesModule } from 'src/files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
-
 @Module({
   imports: [
     DatabaseModule,

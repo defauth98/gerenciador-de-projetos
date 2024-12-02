@@ -12,6 +12,13 @@ const config: Config = {
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
+  coveragePathIgnorePatterns: [
+    'node_modules',
+    'jestGlobalMocks.ts',
+    '.module.ts',
+    './src/main.ts',
+    '.mock.ts',
+  ],
 };
 
 export default config;
