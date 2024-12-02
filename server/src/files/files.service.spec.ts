@@ -176,4 +176,17 @@ describe('FilesService', () => {
       expect(rmMockedFn).toHaveBeenCalledWith(`./${filePayload.filePath}`);
     });
   });
+
+  describe('update()', () => {
+    it('shoud call update method with correct params', async () => {
+      await filesService.update(1, filePayload);
+
+      expect(filesRepository.update).toHaveBeenCalled();
+      expect(filesRepository.update).toHaveBeenCalledTimes(1);
+      expect(filesRepository.update).toHaveBeenCalledWith(
+        { id: 1 },
+        filePayload,
+      );
+    });
+  });
 });
