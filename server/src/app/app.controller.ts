@@ -5,7 +5,7 @@ export class AppController {
   constructor() {}
 
   @Get('time')
-  get(): string {
+  getTime(): string {
     return new Date().toISOString();
   }
 }
