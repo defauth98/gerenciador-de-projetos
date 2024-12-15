@@ -48,10 +48,6 @@ export class FilesService {
     return this.filesRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateFileDto: UpdateFileDto) {
-    return this.filesRepository.update({ id }, updateFileDto);
-  }
-
   async remove(id: number) {
     const file = await this.filesRepository.findOne({ where: { id } });
 

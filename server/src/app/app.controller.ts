@@ -6,6 +6,7 @@ export class AppController {
 
   @Get('time')
   getTime(): string {
+    // TODO: make this return an object
     return new Date().toISOString();
   }
 }
