@@ -1,18 +1,17 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { ProjectService } from './project.service';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from 'src/auth.guard';
+import { ProjectService } from './project.service';
 
 // @UseGuards(AuthGuard)
 @ApiTags('projects')

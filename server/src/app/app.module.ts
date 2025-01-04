@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { FilesModule } from 'src/files/files.module';
+import { TasksModule } from 'src/tasks/tasks.module';
+
 import { DatabaseModule } from '../database/database.module';
 import { ProjectsModule } from '../project/project.module';
 import { UserModule } from '../user/user.module';
-import { TasksModule } from 'src/tasks/tasks.module';
-import { FilesModule } from 'src/files/files.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [

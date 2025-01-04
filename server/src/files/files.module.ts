@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { FilesService } from './files.service';
-import { FilesController } from './files.controller';
-import { fileProvider } from './entities/file.providers';
 import { DatabaseModule } from 'src/database/database.module';
+
+import { fileProvider } from './entities/file.providers';
+import { FilesController } from './files.controller';
+import { FilesService } from './files.service';
 
 @Module({
   imports: [DatabaseModule],

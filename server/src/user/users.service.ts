@@ -4,12 +4,13 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
-import { hashSync, compareSync } from 'bcrypt';
-import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { compareSync, hashSync } from 'bcrypt';
+import { Repository } from 'typeorm';
+
+import { CreateUserDto } from './dto/create-user.dto';
+import { LoginDto } from './dto/login.dto';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {

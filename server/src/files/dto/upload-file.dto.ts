@@ -7,4 +7,4 @@ export class UploadFileDto {
     description: 'File to upload (png, jpeg, jpg, pdf, doc, docx)',
   })
   file: Express.Multer.File;
-} 
+}

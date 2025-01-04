@@ -1,15 +1,16 @@
 jest.mock('bcrypt');
 
-import { UserService } from './users.service';
-import { faker } from '@faker-js/faker';
-import { CreateUserDto } from './dto/create-user.dto';
 import { TestBed } from '@automock/jest';
-import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+import { faker } from '@faker-js/faker';
+import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { Repository } from 'typeorm';
+
+import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
+import { User } from './entities/user.entity';
+import { UserService } from './users.service';
 
 describe('UserService', () => {
   let userService: UserService;

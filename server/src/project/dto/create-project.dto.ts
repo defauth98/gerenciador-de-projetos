@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { Project } from '../entities/project.entity';
 
 export class CreateProjectDto implements Partial<Project> {

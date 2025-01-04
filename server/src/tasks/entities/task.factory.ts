@@ -1,6 +1,6 @@
 import * as faker from '@faker-js/faker';
 import { setSeederFactory } from 'typeorm-extension';
-import * as _ from 'lodash';
+
 import { Task } from './task.entity';
 
 export const TaskFactory = setSeederFactory(Task, (): Partial<Task> => {

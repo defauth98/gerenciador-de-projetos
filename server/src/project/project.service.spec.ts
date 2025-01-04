@@ -1,10 +1,11 @@
-import { faker } from '@faker-js/faker';
 import { TestBed } from '@automock/jest';
-import { Repository } from 'typeorm';
-import { ProjectService } from './project.service';
-import { Project } from './entities/project.entity';
-import { CreateProjectDto } from './dto/create-project.dto';
+import { faker } from '@faker-js/faker';
 import { User } from 'src/user/entities/user.entity';
+import { Repository } from 'typeorm';
+
+import { CreateProjectDto } from './dto/create-project.dto';
+import { Project } from './entities/project.entity';
+import { ProjectService } from './project.service';
 
 describe('UserService', () => {
   let projectService: ProjectService;

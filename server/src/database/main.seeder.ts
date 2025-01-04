@@ -1,11 +1,11 @@
-import { User } from '../user/entities/user.entity';
+import { config } from 'dotenv';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 
-import { config } from 'dotenv';
 import { File } from '../files/entities/file.entity';
 import { Project } from '../project/entities/project.entity';
 import { Task } from '../tasks/entities/task.entity';
+import { User } from '../user/entities/user.entity';
 
 config();
 

@@ -1,17 +1,18 @@
 import 'reflect-metadata';
-import { UsersFactory } from '../user/entities/user.factory';
-import { DataSource, DataSourceOptions } from 'typeorm';
-import { runSeeders, SeederOptions } from 'typeorm-extension';
-import MainSeeder from './main.seeder';
 
 import { config } from 'dotenv';
-import { User } from '../user/entities/user.entity';
-import { FilesFactory } from '../files/entities/file.factory';
+import { DataSource, DataSourceOptions } from 'typeorm';
+import { runSeeders, SeederOptions } from 'typeorm-extension';
+
 import { File } from '../files/entities/file.entity';
+import { FilesFactory } from '../files/entities/file.factory';
 import { Project } from '../project/entities/project.entity';
-import { Task } from '../tasks/entities/task.entity';
 import { ProjectFactory } from '../project/entities/project.factory';
+import { Task } from '../tasks/entities/task.entity';
 import { TaskFactory } from '../tasks/entities/task.factory';
+import { User } from '../user/entities/user.entity';
+import { UsersFactory } from '../user/entities/user.factory';
+import MainSeeder from './main.seeder';
 
 config();
 

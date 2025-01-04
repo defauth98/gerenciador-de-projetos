@@ -1,7 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { CreateUserDto } from './create-user.dto';
 import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
+
+import { CreateUserDto } from './create-user.dto';
 
 describe('CreateUserDto', () => {
   const correctPassword = faker.internet.password();

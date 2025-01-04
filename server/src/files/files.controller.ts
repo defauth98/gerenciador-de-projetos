@@ -1,25 +1,26 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseInterceptors,
-  UploadedFile,
-  ParseFilePipe,
-  MaxFileSizeValidator,
   FileTypeValidator,
+  Get,
+  MaxFileSizeValidator,
+  Param,
+  ParseFilePipe,
+  Patch,
+  Post,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
-import { FilesService } from './files.service';
-import { UpdateFileDto } from './dto/update-file.dto';
-import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { ApiTags, ApiConsumes } from '@nestjs/swagger';
+
+import { UpdateFileDto } from './dto/update-file.dto';
 import { UploadFileDto } from './dto/upload-file.dto';
+import { FilesService } from './files.service';
 
 @Controller('files')
 @ApiTags('Files')

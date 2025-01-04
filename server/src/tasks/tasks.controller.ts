@@ -1,16 +1,17 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { TasksService } from './tasks.service';
+import { ApiTags } from '@nestjs/swagger';
+
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { TasksService } from './tasks.service';
 
 @ApiTags('Tasks')
 @Controller('tasks')

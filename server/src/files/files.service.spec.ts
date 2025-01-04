@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { FilesService } from './files.service';
-import { faker } from '@faker-js/faker';
-import { TestBed } from '@automock/jest';
-import { Repository } from 'typeorm';
-import { File } from './entities/file.entity';
-import { BadRequestException } from '@nestjs/common';
 import { rm } from 'node:fs/promises';
+
+import { TestBed } from '@automock/jest';
+import { faker } from '@faker-js/faker';
+import { BadRequestException } from '@nestjs/common';
+import { Repository } from 'typeorm';
+
+import { File } from './entities/file.entity';
+import { FilesService } from './files.service';
 
 jest.mock('node:fs/promises');
 

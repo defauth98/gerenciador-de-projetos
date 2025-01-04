@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../entities/user.entity';
 import { IsEmail, IsString } from 'class-validator';
+
+import { User } from '../entities/user.entity';
 
 export class LoginDto implements Partial<User> {
   id?: number;

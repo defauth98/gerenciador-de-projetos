@@ -1,4 +1,3 @@
-import { User } from '../../user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,6 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { User } from '../../user/entities/user.entity';
 
 export enum ProjectStatus {
   CREATED = 'criado',

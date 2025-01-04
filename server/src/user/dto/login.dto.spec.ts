@@ -1,7 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { plainToClass } from 'class-transformer';
-import { LoginDto } from './login.dto';
 import { validateSync } from 'class-validator';
+
+import { LoginDto } from './login.dto';
 
 describe('LoginDto', () => {
   const loginData: LoginDto = {

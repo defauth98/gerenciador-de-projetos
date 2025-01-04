@@ -1,8 +1,9 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { UpdateFileDto } from './dto/update-file.dto';
-import { Repository } from 'typeorm';
-import { File } from './entities/file.entity';
 import { rm } from 'node:fs/promises';
+
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+
+import { File } from './entities/file.entity';
 
 @Injectable()
 export class FilesService {
