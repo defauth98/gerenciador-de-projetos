@@ -3,3 +3,5 @@ DB_PORT=3306
 DB_USER=root
 DB_PASSWORD=docker
 DB_NAME=project-manager
+ADMIN_EMAIL=mail@mail.com
+ADMIN_PASSWORD=$2b$12$wB3ldtLK/Zp7558f7genzegcepXklEoYx.XpgeUcHuPEJM46SzprK

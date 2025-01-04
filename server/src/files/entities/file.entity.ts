@@ -1,5 +1,11 @@
-import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from '../../user/entities/user.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class File {
@@ -16,12 +22,12 @@ export class File {
   uploadedAt: Date;
 
   @Column()
-  ownerUserId: number;
+  ownerUserId?: number;
 
   @Column({ length: 255 })
   filePath: string;
-  
+
   @ManyToOne(() => User)
   @JoinColumn({ name: 'ownerUserId' })
-  owner: User;
+  owner?: User;
 }
