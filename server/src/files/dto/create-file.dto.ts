@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Task } from 'src/tasks/entities/task.entity';
+import { TaskEntity } from 'src/tasks/entities/task.entity';
 
-export class CreateFileDto implements Task {
+export class CreateFileDto implements TaskEntity {
   @ApiProperty()
   id: number;
 

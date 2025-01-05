@@ -10,13 +10,13 @@ import { Repository } from 'typeorm';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
-import { User } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @Inject('USER_REPOSITORY')
-    private userRepository: Repository<User>,
+    private userRepository: Repository<UserEntity>,
     private jwtService: JwtService,
   ) {}
 
@@ -39,7 +39,7 @@ export class UserService {
 
     const passwordHash = hashSync(password, 12);
 
-    const payload: Partial<User> = {
+    const payload: Partial<UserEntity> = {
       email: createUserDto.email,
       name: createUserDto.name,
       passwordHash,

@@ -3,13 +3,13 @@ import { rm } from 'node:fs/promises';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
-import { File } from './entities/file.entity';
+import { FileEntity } from './entities/file.entity';
 
 @Injectable()
 export class FilesService {
   constructor(
     @Inject('FILE_REPOSITORY')
-    private readonly filesRepository: Repository<File>,
+    private readonly filesRepository: Repository<FileEntity>,
   ) {}
 
   async upload(file: Express.Multer.File) {

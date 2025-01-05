@@ -2,10 +2,10 @@ import { config } from 'dotenv';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 
-import { File } from '../files/entities/file.entity';
-import { Project } from '../project/entities/project.entity';
-import { Task } from '../tasks/entities/task.entity';
-import { User } from '../user/entities/user.entity';
+import { FileEntity } from '../files/entities/file.entity';
+import { ProjectEntity } from '../project/entities/project.entity';
+import { TaskEntity } from '../tasks/entities/task.entity';
+import { UserEntity } from '../user/entities/user.entity';
 
 config();
 
@@ -14,10 +14,10 @@ export default class MainSeeder implements Seeder {
     dataSource: DataSource,
     factoryManager: SeederFactoryManager,
   ): Promise<any> {
-    const userFactory = factoryManager.get(User);
-    const fileFactory = factoryManager.get(File);
-    const projectFactory = factoryManager.get(Project);
-    const taskFactory = factoryManager.get(Task);
+    const userFactory = factoryManager.get(UserEntity);
+    const fileFactory = factoryManager.get(FileEntity);
+    const projectFactory = factoryManager.get(ProjectEntity);
+    const taskFactory = factoryManager.get(TaskEntity);
 
     const adminUser = await userFactory.make({
       id: 1,

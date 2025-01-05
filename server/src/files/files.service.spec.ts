@@ -6,7 +6,7 @@ import { faker } from '@faker-js/faker';
 import { BadRequestException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
-import { File } from './entities/file.entity';
+import { FileEntity } from './entities/file.entity';
 import { FilesService } from './files.service';
 
 jest.mock('node:fs/promises');
@@ -15,7 +15,7 @@ const rmMockedFn = jest.mocked(rm);
 
 describe('FilesService', () => {
   let filesService: FilesService;
-  let filesRepository: jest.Mocked<Repository<File>>;
+  let filesRepository: jest.Mocked<Repository<FileEntity>>;
 
   const mockFile = {
     fieldname: 'file',
@@ -30,7 +30,7 @@ describe('FilesService', () => {
     stream: null as any,
   };
 
-  const filePayload: File = {
+  const filePayload: FileEntity = {
     id: faker.number.int({ min: 1, max: 100 }),
     filePath: mockFile.path,
     name: mockFile.originalname,

@@ -1,10 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Project } from '../entities/project.entity';
+import { ProjectEntity } from '../entities/project.entity';
 
-export class CreateProjectDto implements Partial<Project> {
-  id: number;
-
+export class CreateProjectDto implements Partial<ProjectEntity> {
   @ApiProperty()
   title: string;
 
@@ -25,7 +23,4 @@ export class CreateProjectDto implements Partial<Project> {
 
   @ApiProperty()
   status: string;
-
-  createdAt: Date;
-  updatedAt: Date;
 }

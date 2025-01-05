@@ -1,18 +1,17 @@
 import { TestBed } from '@automock/jest';
 import { faker } from '@faker-js/faker';
-import { User } from 'src/user/entities/user.entity';
+import { UserEntity } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
 
-import { CreateProjectDto } from './dto/create-project.dto';
-import { Project } from './entities/project.entity';
+import { ProjectEntity } from './entities/project.entity';
 import { ProjectService } from './project.service';
 
 describe('UserService', () => {
   let projectService: ProjectService;
-  let projectRepository: jest.Mocked<Repository<Project>>;
-  let userRepository: jest.Mocked<Repository<User>>;
+  let projectRepository: jest.Mocked<Repository<ProjectEntity>>;
+  let userRepository: jest.Mocked<Repository<UserEntity>>;
 
-  const projectPayload: CreateProjectDto = {
+  const projectPayload: ProjectEntity = {
     id: 1,
     advisorId: 1,
     coAdvisorId: 1,
@@ -23,9 +22,10 @@ describe('UserService', () => {
     title: 'any title',
     createdAt: new Date(),
     updatedAt: new Date(),
+    members: [],
   };
 
-  const userPayload: User = {
+  const userPayload: UserEntity = {
     id: 1,
     name: faker.person.fullName(),
     email: faker.internet.email(),
@@ -34,8 +34,8 @@ describe('UserService', () => {
     updatedAt: new Date(),
   };
 
-  const userPayload2: User = {
-    id: 2,
+  const userPayload2: UserEntity = {
+    id: 1,
     name: faker.person.fullName(),
     email: faker.internet.email(),
     passwordHash: faker.internet.password(),

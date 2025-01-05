@@ -9,12 +9,12 @@ import { Repository } from 'typeorm';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
-import { User } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 import { UserService } from './users.service';
 
 describe('UserService', () => {
   let userService: UserService;
-  let userRepository: jest.Mocked<Repository<User>>;
+  let userRepository: jest.Mocked<Repository<UserEntity>>;
   let jwtService: jest.Mocked<JwtService>;
 
   const correctPassword = faker.internet.password();
@@ -31,7 +31,7 @@ describe('UserService', () => {
     password: faker.internet.password(),
   };
 
-  const userPayload: User = {
+  const userPayload: UserEntity = {
     id: 1,
     name: faker.person.fullName(),
     email: faker.internet.email(),

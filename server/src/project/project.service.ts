@@ -1,18 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
-import { User } from '../user/entities/user.entity';
+import { UserEntity } from '../user/entities/user.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { Project } from './entities/project.entity';
+import { ProjectEntity } from './entities/project.entity';
 
 @Injectable()
 export class ProjectService {
   constructor(
     @Inject('PROJECT_REPOSITORY')
-    private projectRepository: Repository<Project>,
+    private projectRepository: Repository<ProjectEntity>,
     @Inject('USER_REPOSITORY')
-    private userRepository: Repository<User>,
+    private userRepository: Repository<UserEntity>,
   ) {}
 
   async create(createProjectDto: CreateProjectDto) {

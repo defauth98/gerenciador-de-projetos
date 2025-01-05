@@ -1,11 +1,11 @@
 import * as faker from '@faker-js/faker';
 import { setSeederFactory } from 'typeorm-extension';
 
-import { Project } from './project.entity';
+import { ProjectEntity } from './project.entity';
 
 export const ProjectFactory = setSeederFactory(
-  Project,
-  (): Partial<Project> => {
+  ProjectEntity,
+  (): Partial<ProjectEntity> => {
     return {
       advisorId: 1,
       coAdvisorId: Math.floor(Math.random() * 10) + 1,

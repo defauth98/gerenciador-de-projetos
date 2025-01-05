@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { User } from '../../user/entities/user.entity';
+import { UserEntity } from '../../user/entities/user.entity';
 
-@Entity()
-export class File {
+@Entity('file')
+export class FileEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -28,7 +28,7 @@ export class File {
   @Column({ length: 255 })
   filePath: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => UserEntity)
   @JoinColumn({ name: 'ownerUserId' })
-  owner?: User;
+  owner?: UserEntity;
 }

@@ -14,7 +14,7 @@ describe('CreateUserDto', () => {
     passwordConfirmation: correctPassword,
   };
 
-  it('should not to be valid if invalid email are provided ', () => {
+  it('should not to be valid if invalid email are provided', () => {
     const createUserDto = plainToClass(CreateUserDto, {
       ...createUserData,
       email: null,
@@ -27,7 +27,7 @@ describe('CreateUserDto', () => {
     });
   });
 
-  it('should not to be valid if invalid password are provided ', () => {
+  it('should not to be valid if invalid password are provided', () => {
     const createUserDto = plainToClass(CreateUserDto, {
       ...createUserData,
       password: null,
@@ -40,7 +40,7 @@ describe('CreateUserDto', () => {
     });
   });
 
-  it('should not to be valid if invalid password are provided ', () => {
+  it('should not to be valid if invalid password are provided', () => {
     const createUserDto = plainToClass(CreateUserDto, {
       ...createUserData,
       passwordConfirmation: null,
@@ -53,7 +53,7 @@ describe('CreateUserDto', () => {
     });
   });
 
-  it('should not to be valid if invalid password are provided ', () => {
+  it('should not to be valid if invalid password are provided', () => {
     const createUserDto = plainToClass(CreateUserDto, {
       ...createUserData,
       name: null,
@@ -66,7 +66,7 @@ describe('CreateUserDto', () => {
     });
   });
 
-  it('should to be valid if valid data are provided ', () => {
+  it('should to be valid if valid data are provided', () => {
     const createUserDto = plainToClass(CreateUserDto, createUserData);
     const errors = validateSync(createUserDto);
     expect(errors).toHaveLength(0);

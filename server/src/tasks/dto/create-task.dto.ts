@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Task } from '../entities/task.entity';
+import { TaskEntity } from '../entities/task.entity';
 
-export class CreateTaskDto implements Partial<Task> {
+export class CreateTaskDto implements Partial<TaskEntity> {
   @ApiProperty()
   name: string;
 

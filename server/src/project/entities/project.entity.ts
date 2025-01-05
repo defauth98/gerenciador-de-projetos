@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { User } from '../../user/entities/user.entity';
+import { UserEntity } from '../../user/entities/user.entity';
 
 export enum ProjectStatus {
   CREATED = 'criado',
@@ -16,8 +16,8 @@ export enum ProjectStatus {
   FINISHED = 'concluido',
 }
 
-@Entity()
-export class Project {
+@Entity('project')
+export class ProjectEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -48,7 +48,9 @@ export class Project {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToMany(() => User)
-  @JoinTable()
-  members: Partial<User>[];
+  @ManyToMany(() => UserEntity)
+  @JoinTable({
+    name: 'userProject',
+  })
+  members: Partial<UserEntity>[];
 }

@@ -3,12 +3,12 @@ import { Repository } from 'typeorm';
 
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { Task } from './entities/task.entity';
+import { TaskEntity } from './entities/task.entity';
 
 @Injectable()
 export class TasksService {
   @Inject('TASK_REPOSITORY')
-  private taskRepository: Repository<Task>;
+  private taskRepository: Repository<TaskEntity>;
 
   create(createTaskDto: CreateTaskDto) {
     return this.taskRepository.save(createTaskDto);

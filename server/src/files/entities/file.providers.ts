@@ -1,11 +1,12 @@
 import { DataSource } from 'typeorm';
 
-import { File } from './file.entity';
+import { FileEntity } from './file.entity';
 
 export const fileProvider = [
   {
     provide: 'FILE_REPOSITORY',
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(File),
+    useFactory: (dataSource: DataSource) =>
+      dataSource.getRepository(FileEntity),
     inject: ['DATA_SOURCE'],
   },
 ];

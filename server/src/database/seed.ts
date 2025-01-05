@@ -4,13 +4,13 @@ import { config } from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { runSeeders, SeederOptions } from 'typeorm-extension';
 
-import { File } from '../files/entities/file.entity';
+import { FileEntity } from '../files/entities/file.entity';
 import { FilesFactory } from '../files/entities/file.factory';
-import { Project } from '../project/entities/project.entity';
+import { ProjectEntity } from '../project/entities/project.entity';
 import { ProjectFactory } from '../project/entities/project.factory';
-import { Task } from '../tasks/entities/task.entity';
+import { TaskEntity } from '../tasks/entities/task.entity';
 import { TaskFactory } from '../tasks/entities/task.factory';
-import { User } from '../user/entities/user.entity';
+import { UserEntity } from '../user/entities/user.entity';
 import { UsersFactory } from '../user/entities/user.factory';
 import MainSeeder from './main.seeder';
 
@@ -23,7 +23,7 @@ const dataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [User, File, Project, Task],
+  entities: [UserEntity, FileEntity, ProjectEntity, TaskEntity],
   synchronize: true,
   factories: [UsersFactory, FilesFactory, ProjectFactory, TaskFactory],
   seeds: [MainSeeder],
