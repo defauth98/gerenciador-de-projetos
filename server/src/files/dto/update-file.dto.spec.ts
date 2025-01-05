@@ -1,20 +1,29 @@
-import { faker } from '@faker-js/faker/.';
 import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
 
-import { CreateFileDto } from './create-file.dto';
+import { UpdateFileDto } from './update-file.dto';
 
-describe('Create file dto', () => {
+describe('Update file dto', () => {
+  it('should pass in validation with valid payload are provided', () => {
+    const validUpdateFilePayload: UpdateFileDto = {};
+    const updateFileDto = plainToClass(UpdateFileDto, validUpdateFilePayload);
+
+    const errors = validateSync(updateFileDto);
+
+    expect(errors).toHaveLength(0);
+  });
+
   it('should have validation errors if invalid payload are provided', () => {
-    const invalidFilePayload: CreateFileDto = {
-      filePath: null,
-      fileType: null,
-      name: null,
-      ownerUserId: null,
+    const invalidUpdateFilePayload = {
+      name: 1,
+      ownerUserId: '1',
+      filePath: 1,
+      fileType: 1,
     };
-    const createFileDto = plainToClass(CreateFileDto, invalidFilePayload);
+    const updateFileDto = plainToClass(UpdateFileDto, invalidUpdateFilePayload);
 
-    const errors = validateSync(createFileDto);
+    const errors = validateSync(updateFileDto);
+
     const nameValidationError = errors.find(
       (error) => error.property === 'name',
     );
@@ -39,18 +48,5 @@ describe('Create file dto', () => {
       'isString',
     ]);
     expect(errors).toHaveLength(4);
-  });
-
-  it('should have no validation errors if valid payload are provided', () => {
-    const validFilePayload: CreateFileDto = {
-      name: faker.lorem.word(),
-      filePath: faker.lorem.word(),
-      fileType: faker.lorem.word(),
-      ownerUserId: 1,
-    };
-    const createFileDto = plainToClass(CreateFileDto, validFilePayload);
-
-    const errors = validateSync(createFileDto);
-    expect(errors).toHaveLength(0);
   });
 });
