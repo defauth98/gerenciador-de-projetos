@@ -1,25 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { TaskEntity } from 'src/tasks/entities/task.entity';
+import { IsNumber, IsString } from 'class-validator';
 
-export class CreateFileDto implements TaskEntity {
-  @ApiProperty()
-  id: number;
+import { FileEntity } from '../entities/file.entity';
 
+export class CreateFileDto implements Partial<FileEntity> {
   @ApiProperty()
+  @IsString()
   name: string;
 
   @ApiProperty()
-  checked: boolean;
+  @IsNumber()
+  ownerUserId?: number;
 
   @ApiProperty()
-  priority: string;
+  @IsString()
+  fileType: string;
 
   @ApiProperty()
-  dueDate: Date;
-
-  @ApiProperty()
-  ownerUserId: number;
-
-  @ApiProperty()
-  responsibleUserId: number;
+  @IsString()
+  filePath: string;
 }
