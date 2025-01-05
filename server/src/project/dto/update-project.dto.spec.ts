@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker/.';
 import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
 
+import { validateConstrains } from '../../helpers/validateConstrains';
 import { ProjectEntity } from '../entities/project.entity';
 import { UpdateProjectDto } from './update-project.dto';
 
@@ -60,39 +61,19 @@ describe('Update project dto', () => {
     );
 
     const errors = validateSync(updateProjectDto);
-    const titleValidationError = errors.find(
-      (error) => error.property === 'title',
-    );
-    const descriptionValidationError = errors.find(
-      (error) => error.property === 'description',
-    );
-    const advisorValidationError = errors.find(
-      (error) => error.property === 'advisorId',
-    );
-    const coAdvisorValidationError = errors.find(
-      (error) => error.property === 'coAdvisorId',
-    );
-    const dueDateValidationError = errors.find(
-      (error) => error.property === 'dueDate',
-    );
-    const statusValidationError = errors.find(
-      (error) => error.property === 'status',
-    );
 
-    expect(Object.keys(titleValidationError.constraints)).toEqual(['isString']);
-    expect(Object.keys(descriptionValidationError.constraints)).toEqual([
-      'isString',
-    ]);
-    expect(Object.keys(advisorValidationError.constraints)).toEqual([
-      'isNumber',
-    ]);
-    expect(Object.keys(coAdvisorValidationError.constraints)).toEqual([
-      'isNumber',
-    ]);
-    expect(Object.keys(dueDateValidationError.constraints)).toEqual(['isDate']);
-    expect(Object.keys(statusValidationError.constraints)).toEqual([
-      'isString',
-    ]);
+    validateConstrains<UpdateProjectDto>(
+      {
+        advisorId: 'isNumber',
+        coAdvisorId: 'isNumber',
+        theme: 'isString',
+        description: 'isString',
+        dueDate: 'isDate',
+        status: 'isString',
+        title: 'isString',
+      },
+      errors,
+    );
     expect(errors).toHaveLength(7);
   });
 });

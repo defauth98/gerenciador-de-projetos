@@ -1,6 +1,7 @@
 import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
 
+import { validateConstrains } from '../../helpers/validateConstrains';
 import { UpdateFileDto } from './update-file.dto';
 
 describe('Update file dto', () => {
@@ -24,29 +25,15 @@ describe('Update file dto', () => {
 
     const errors = validateSync(updateFileDto);
 
-    const nameValidationError = errors.find(
-      (error) => error.property === 'name',
+    validateConstrains<UpdateFileDto>(
+      {
+        name: 'isString',
+        ownerUserId: 'isNumber',
+        filePath: 'isString',
+        fileType: 'isString',
+      },
+      errors,
     );
-    const ownerUserIdValidationError = errors.find(
-      (error) => error.property === 'ownerUserId',
-    );
-    const fileTypeValidationError = errors.find(
-      (error) => error.property === 'fileType',
-    );
-    const filePathValidationError = errors.find(
-      (error) => error.property === 'fileType',
-    );
-
-    expect(Object.keys(fileTypeValidationError.constraints)).toEqual([
-      'isString',
-    ]);
-    expect(Object.keys(ownerUserIdValidationError.constraints)).toEqual([
-      'isNumber',
-    ]);
-    expect(Object.keys(nameValidationError.constraints)).toEqual(['isString']);
-    expect(Object.keys(filePathValidationError.constraints)).toEqual([
-      'isString',
-    ]);
     expect(errors).toHaveLength(4);
   });
 });
