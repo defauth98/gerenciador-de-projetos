@@ -4,17 +4,22 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
 
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
 
 @ApiTags('Tasks')
-@Controller('tasks')
+@Controller('project/:projectId/tasks')
+@ApiParam({
+  name: 'projectId',
+  type: 'number',
+})
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
@@ -24,9 +29,8 @@ export class TasksController {
   }
 
   @Get()
-  findAll() {
-    // TODO: make this return values: []
-    return this.tasksService.findAll();
+  findAll(@Param('projectId', ParseIntPipe) projectId: number) {
+    return this.tasksService.findAll(projectId);
   }
 
   @Get(':id')
@@ -36,13 +40,11 @@ export class TasksController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    // TODO: add test to ensure that endpoint dont return anything
     await this.tasksService.update(+id, updateTaskDto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    // TODO: add test to ensure that endpint dont return anything
     await this.tasksService.remove(+id);
   }
 }

@@ -31,8 +31,8 @@ export default class MainSeeder implements Seeder {
 
     await userFactory.save(adminUser);
     await userFactory.saveMany(10);
-    await fileFactory.saveMany(5);
     await projectFactory.saveMany(3);
     await taskFactory.saveMany(15);
+    await fileFactory.saveMany(5);
   }
 }

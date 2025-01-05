@@ -1,4 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+import { ProjectEntity } from '../../project/entities/project.entity';
 
 @Entity('task')
 export class TaskEntity {
@@ -22,4 +30,11 @@ export class TaskEntity {
 
   @Column({ nullable: true })
   responsibleUserId: number;
+
+  @Column({ default: null, nullable: true })
+  projectId: number | null;
+
+  @OneToMany(() => ProjectEntity, (project) => project.id)
+  @JoinColumn({ name: 'projectId' })
+  project?: ProjectEntity;
 }

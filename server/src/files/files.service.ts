@@ -32,8 +32,11 @@ export class FilesService {
     return this.filesRepository.save({ ...fileEntity, uploadedAt: new Date() });
   }
 
-  async findAll() {
+  async findAll(projectId: number) {
     const files = await this.filesRepository.find({
+      where: {
+        projectId,
+      },
       relations: {
         owner: true,
       },

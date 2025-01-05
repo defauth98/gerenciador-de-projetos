@@ -13,6 +13,7 @@ export const FilesFactory = setSeederFactory(
       fileType: 'docx',
       filePath: `/uploads/${filename}`,
       ownerUserId: Math.floor(Math.random() * 10) + 1,
+      projectId: Math.floor(Math.random() * 3) + 1,
       uploadedAt: new Date(),
     };
   },

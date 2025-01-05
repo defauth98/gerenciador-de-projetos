@@ -14,8 +14,8 @@ export class TasksService {
     return this.taskRepository.save(createTaskDto);
   }
 
-  findAll() {
-    return this.taskRepository.find();
+  findAll(projectId: number) {
+    return this.taskRepository.find({ where: { projectId } });
   }
 
   findOne(id: number) {

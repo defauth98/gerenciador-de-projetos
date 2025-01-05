@@ -12,7 +12,8 @@ export const TaskFactory = setSeederFactory(
       checked: Boolean(Math.floor(Math.random())),
       dueDate: faker.faker.date.future(),
       ownerUserId: 1,
-      responsibleUserId: Math.floor(Math.random() * 10),
+      responsibleUserId: Math.floor(Math.random() * 10) + 1,
+      projectId: Math.floor(Math.random() * 3) + 1,
     };
   },
 );

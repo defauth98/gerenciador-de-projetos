@@ -8,21 +8,24 @@ import {
   MaxFileSizeValidator,
   Param,
   ParseFilePipe,
-  Patch,
+  ParseIntPipe,
   Post,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiParam, ApiTags } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 
-import { UpdateFileDto } from './dto/update-file.dto';
 import { UploadFileDto } from './dto/upload-file.dto';
 import { FilesService } from './files.service';
 
-@Controller('files')
+@Controller('project/:projectId/files')
+@ApiParam({
+  name: 'projectId',
+  type: 'number',
+})
 @ApiTags('Files')
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
@@ -57,8 +60,8 @@ export class FilesController {
   }
 
   @Get()
-  findAll() {
-    return this.filesService.findAll();
+  findAll(@Param('projectId', ParseIntPipe) projectId: number) {
+    return this.filesService.findAll(projectId);
   }
 
   @Get(':id')
