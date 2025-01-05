@@ -37,6 +37,7 @@ describe('FilesService', () => {
     fileType: mockFile.mimetype,
     uploadedAt: new Date(),
     ownerUserId: faker.number.int({ min: 1, max: 100 }),
+    projectId: faker.number.int({ min: 1, max: 100 }),
     owner: {
       id: faker.number.int({ min: 1, max: 100 }),
       name: faker.person.fullName(),
@@ -102,7 +103,7 @@ describe('FilesService', () => {
       const filesArray = [filePayload, { ...filePayload, id: 2 }];
       filesRepository.find.mockResolvedValue(filesArray);
 
-      const files = await filesService.findAll();
+      const files = await filesService.findAll(1);
 
       expect(files).toEqual(
         filesArray.map((file) => ({
@@ -111,6 +112,9 @@ describe('FilesService', () => {
         })),
       );
       expect(filesRepository.find).toHaveBeenCalledWith({
+        where: {
+          projectId: 1,
+        },
         relations: {
           owner: true,
         },
@@ -120,7 +124,7 @@ describe('FilesService', () => {
     it('should return empty array when no files found', async () => {
       filesRepository.find.mockResolvedValue([]);
 
-      const files = await filesService.findAll();
+      const files = await filesService.findAll(1);
 
       expect(files).toEqual([]);
     });
