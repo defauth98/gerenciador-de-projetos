@@ -119,7 +119,36 @@ describe('UserService', () => {
       expect(project.coAdvisor.id).toEqual(userPayload2.id);
     });
   });
-  describe('findProjectsByUserId()', () => {});
+  describe('findProjectsByUserId()', () => {
+    it('should call project repository with correct params', async () => {
+      const projectSpy = projectRepository.find.mockResolvedValue([
+        projectPayload,
+      ]);
+
+      await projectService.findProjectsByUserId(1);
+
+      expect(projectSpy).toHaveBeenCalledWith({
+        where: {
+          members: {
+            id: 1,
+          },
+        },
+      });
+    });
+
+    it('should return only id and title properties', async () => {
+      projectRepository.find.mockResolvedValue([projectPayload]);
+
+      const projects = await projectService.findProjectsByUserId(1);
+
+      const project = projects.values[0];
+
+      expect(project).toEqual({
+        id: projectPayload.id,
+        title: projectPayload.title,
+      });
+    });
+  });
   describe('update()', () => {});
   describe('remove()', () => {});
 });
