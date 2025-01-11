@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app/app.module';
-import { LoggingInterceptor } from './request-log.interceptor';
+import { LoggingInterceptor } from './interceptors/request-log.interceptor';
 
 async function bootstrap() {
   const port = process.env.PORT || 3333;
