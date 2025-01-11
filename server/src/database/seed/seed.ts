@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { config } from 'dotenv';
 import { runSeeders } from 'typeorm-extension';
 
-import { dataSource } from './datasource';
+import { dataSource } from '../datasource';
 
 config();
 

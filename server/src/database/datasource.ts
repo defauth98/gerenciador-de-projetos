@@ -10,7 +10,7 @@ import { TaskEntity } from '../tasks/entities/task.entity';
 import { TaskFactory } from '../tasks/entities/task.factory';
 import { UserEntity } from '../user/entities/user.entity';
 import { UsersFactory } from '../user/entities/user.factory';
-import MainSeeder from './main.seeder';
+import MainSeeder from './seed/main.seeder';
 
 config();
 

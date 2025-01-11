@@ -2,10 +2,10 @@ import { config } from 'dotenv';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 
-import { FileEntity } from '../files/entities/file.entity';
-import { ProjectEntity } from '../project/entities/project.entity';
-import { TaskEntity } from '../tasks/entities/task.entity';
-import { UserEntity } from '../user/entities/user.entity';
+import { FileEntity } from '../../files/entities/file.entity';
+import { ProjectEntity } from '../../project/entities/project.entity';
+import { TaskEntity } from '../../tasks/entities/task.entity';
+import { UserEntity } from '../../user/entities/user.entity';
 
 config();
 
