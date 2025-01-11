@@ -1,11 +1,17 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { config } from 'dotenv';
 
 import { AppModule } from './app/app.module';
 import { LoggingInterceptor } from './interceptors/request-log.interceptor';
+import { validateEnv } from './validateEnv';
+
+config();
 
 async function bootstrap() {
+  validateEnv();
+
   const port = process.env.PORT || 3333;
 
   const app = await NestFactory.create(AppModule);
