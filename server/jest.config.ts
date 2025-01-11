@@ -15,6 +15,7 @@ const config: Config = {
   coveragePathIgnorePatterns: [
     'node_modules',
     'jestGlobalMocks.ts',
+    '.controller.ts',
     '.module.ts',
     './src/main.ts',
     '.mock.ts',
