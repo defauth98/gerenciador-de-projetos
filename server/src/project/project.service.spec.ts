@@ -149,6 +149,28 @@ describe('UserService', () => {
       });
     });
   });
-  describe('update()', () => {});
-  describe('remove()', () => {});
+  describe('update()', () => {
+    it('should call repository with correct params', async () => {
+      const updateSpy = projectRepository.update.mockImplementationOnce(
+        (): any => {},
+      );
+
+      await projectService.update(1, projectPayload);
+
+      expect(updateSpy).toHaveBeenCalledTimes(1);
+      expect(updateSpy).toHaveBeenCalledWith({ id: 1 }, projectPayload);
+    });
+  });
+  describe('remove()', () => {
+    it('should call repository with correct params', async () => {
+      const removeSpy = projectRepository.delete.mockImplementationOnce(
+        (): any => {},
+      );
+
+      await projectService.remove(1);
+
+      expect(removeSpy).toHaveBeenCalledTimes(1);
+      expect(removeSpy).toHaveBeenCalledWith({ id: 1 });
+    });
+  });
 });
