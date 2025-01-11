@@ -14,7 +14,7 @@ import MainSeeder from './seed/main.seeder';
 
 config();
 
-export const dataSource = new DataSource({
+export const dataSourceOptions = {
   type: 'mysql',
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
@@ -25,4 +25,6 @@ export const dataSource = new DataSource({
   synchronize: true,
   factories: [UsersFactory, FilesFactory, ProjectFactory, TaskFactory],
   seeds: [MainSeeder],
-} as DataSourceOptions & SeederOptions);
+} as DataSourceOptions & SeederOptions;
+
+export const dataSource = new DataSource(dataSourceOptions);
