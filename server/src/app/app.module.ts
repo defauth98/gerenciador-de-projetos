@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { FilesModule } from 'src/files/files.module';
-import { TasksModule } from 'src/tasks/tasks.module';
 
 import { DatabaseModule } from '../database/database.module';
+import { FilesModule } from '../files/files.module';
 import { ProjectsModule } from '../project/project.module';
+import { TasksModule } from '../tasks/tasks.module';
 import { UserModule } from '../user/user.module';
 import { AppController } from './app.controller';
 
