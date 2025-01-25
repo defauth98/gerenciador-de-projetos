@@ -4,7 +4,7 @@ import * as request from 'supertest';
 
 import { AppModule } from './app.module';
 
-describe('Cats', () => {
+describe('App Controller', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
